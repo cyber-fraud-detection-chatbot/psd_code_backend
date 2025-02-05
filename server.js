@@ -6,7 +6,21 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000',  // Local development
+  'https://your-frontend-domain.com', // Your production frontend URL
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 // Database connection configuration
