@@ -9,6 +9,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000',  // Local development
   'https://your-frontend-domain.com', // Your production frontend URL
+  'https://psd-code-ekqy89w97-vijenders-projects-8199b04c.vercel.app',
 ];
 
 app.use(cors({
@@ -22,6 +23,12 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+
+// app.use(cors({
+//   origin: ['https://psd-code-ekqy89w97-vijenders-projects-8199b04c.vercel.app', 'http://localhost:3000'],
+//   methods: ['GET', 'POST'],
+//   credentials: true
+// }));
 
 // Database connection configuration
 const dbConfig = {
