@@ -24,12 +24,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// app.use(cors({
-//   origin: ['https://psd-code-ekqy89w97-vijenders-projects-8199b04c.vercel.app', 'http://localhost:3000'],
-//   methods: ['GET', 'POST'],
-//   credentials: true
-// }));
-
 // Database connection configuration
 const dbConfig = {
   host: process.env.DB_HOST,
@@ -64,9 +58,9 @@ app.post('/api/execute', async (req, res) => {
   const { query } = req.body;
 
   const disallowedKeywords = ['DROP', 'DELETE', 'UPDATE', 'INSERT', 'ALTER', 'TRUNCATE'];
-  const containsDisallowedKeyword = disallowedKeywords.some(keyword => 
-    query.toUpperCase().includes(keyword)
-  );
+  const containsDisallowedKeyword = disallowedKeywords.some(keyword =>
+    query?.toString().toUpperCase().includes(keyword) ?? false
+);
 
   if (containsDisallowedKeyword) {
     return res.status(400).json({ 
